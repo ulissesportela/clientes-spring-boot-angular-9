@@ -9,8 +9,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.PrePersist;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.br.CPF;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.sun.istack.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,9 +33,12 @@ public class Cliente {
 	private Integer id;
 	
 	@Column(nullable = false, length = 150)
+	@NotEmpty
 	private String nome;
 	
 	@Column(nullable = false, length = 11)
+	@NotNull
+	@CPF
 	private String cpf;
 	
 	@Column(name = "date_cadastro", updatable = false)
