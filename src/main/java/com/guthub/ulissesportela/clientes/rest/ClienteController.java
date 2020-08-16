@@ -1,6 +1,6 @@
 package com.guthub.ulissesportela.clientes.rest;
 
-import javax.websocket.server.PathParam;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,7 +31,7 @@ public class ClienteController {
 	
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Cliente salvar(@RequestBody Cliente cliente) {
+	public Cliente salvar(@Valid @RequestBody Cliente cliente) {
 		return repository.save(cliente);
 	}
 	
