@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
@@ -37,7 +38,7 @@ public class ClienteController {
 	
 	@GetMapping("{id}")
 	public Cliente acharPorId( @PathVariable Integer id) {
-		return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+		return repository.findById(id).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não Encontrado"));
 	}
 	
 	@DeleteMapping("{id}")
@@ -47,7 +48,7 @@ public class ClienteController {
 					.map(cliente -> {
 						repository.deleteById(id);
 						return Void.TYPE;
-					}).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+					}).orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não Encontrado"));
 	}
 	
 	@PutMapping("{id}")
@@ -59,6 +60,6 @@ public class ClienteController {
 						cliente.setCpf(clienteAtualizado.getCpf());
 						return repository.save(cliente);
 					})
-					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+					.orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não Encontrado"));
 	}
 }
